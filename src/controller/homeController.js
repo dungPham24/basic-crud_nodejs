@@ -63,6 +63,10 @@ const deleteCrudPage = async (req, res) => {
     return res.send("user note found");
   }
 };
+
+const getLoginPage = async (req, res) => {
+  return res.send("heelo window");
+};
 module.exports = {
   getHomePage,
   getCrudPage,
@@ -71,4 +75,5 @@ module.exports = {
   editCrudPage,
   putCrudPage,
   deleteCrudPage,
+  getLoginPage,
 };
