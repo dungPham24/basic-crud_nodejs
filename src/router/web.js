@@ -1,11 +1,13 @@
 import express from "express";
 import homeController from "../controller/homeController";
 //dat lich kham benh BE
-import userLogin from "../controller/LoginUser";
+import userController from "../controller/LoginUser";
+import doctorController from "../controller/doctorController";
 
 const router = express.Router();
 
 const innitWebRouter = (app) => {
+  //crud nodej
   router.get("/", homeController.getHomePage);
 
   router.get("/crud", homeController.getCrudPage);
@@ -20,10 +22,23 @@ const innitWebRouter = (app) => {
 
   router.get("/delete-crud", homeController.deleteCrudPage);
 
-  //dat lich kham benh BE
-  router.post("/api/login", userLogin.handlerLogin);
+  //api đặt lịch khám bệnh
+  router.post("/api/login", userController.handlerLogin);
 
-  router.get("/api/all/getUser", userLogin.getAllUserLogin);
+  router.get("/api/all/getUser", userController.getAllUserLogin);
+
+  router.post("/api/create/newUser", userController.handlerCreateNewUser);
+
+  router.put("/api/eidt/user", userController.handlerEditUser);
+
+  router.delete("/api/delete/user", userController.handlerDeleteUser);
+
+  router.get("/api/allcode", userController.getAllCode);
+
+  router.get("/api/doctor/top", doctorController.getTopdoctorHome);
+
+  router.get("/api/all/doctors", doctorController.getAlldoctors);
+
   //lấy hết tất cả các router
   return app.use("/", router);
 };
