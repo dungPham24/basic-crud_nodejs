@@ -100,7 +100,6 @@ const createNewUer = (data) => {
           phonenumber: data.phonenumber,
           positionId: data.positionId,
           roleId: data.roleId,
-
           image: data.image,
         });
 

@@ -29,7 +29,7 @@ const innitWebRouter = (app) => {
 
   router.post("/api/create/newUser", userController.handlerCreateNewUser);
 
-  router.put("/api/eidt/user", userController.handlerEditUser);
+  router.put("/api/edit/user", userController.handlerEditUser);
 
   router.delete("/api/delete/user", userController.handlerDeleteUser);
 
@@ -38,6 +38,10 @@ const innitWebRouter = (app) => {
   router.get("/api/doctor/top", doctorController.getTopdoctorHome);
 
   router.get("/api/all/doctors", doctorController.getAlldoctors);
+
+  router.post('/api/info/doctors', doctorController.getInfoDoctors);
+  
+  router.get('/api/details/doctor',doctorController.getDetailsDoctorsById);
 
   //lấy hết tất cả các router
   return app.use("/", router);

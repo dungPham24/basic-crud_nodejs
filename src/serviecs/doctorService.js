@@ -52,7 +52,78 @@ const getAlldoctors = () => {
     }
   });
 };
+ 
+const getInfoDoctors = (inputdata) => {
+return new Promise(async (resolve, reject) => {
+  try {
+    if (!inputdata.doctorId || !inputdata.contentHTML || !inputdata.contentMarkdown) {
+      return resolve({
+        errCode: 1,
+        errMessenger: "missing input data"
+      })
+    } else {
+     await db.Mardown.create({
+        contentHTML: inputdata.contentHTML,
+        contentMardown: inputdata.contentMarkdown,
+        description: inputdata.description,
+        doctorId: inputdata.doctorId
+      })
+      resolve({
+        errCode: 0,
+        errMessenger: "save info doctor success"
+      });
+    }
+  } catch (error) {
+    reject(error)
+  }
+});
+};
+
+const getDetailsDoctor = (id) => {
+  return new Promise(async (resolve, reject) => { 
+    try {
+      if (!id) resolve({ errCode: 1, errMessenger: "missing id" })
+      else { 
+        const data = await db.Users.findOne({
+          where: { id },
+           attributes: {
+          exclude: ["password"],
+        },
+        include: [
+          {
+            model: db.Mardown,
+            attributes: ['contentHTML', "contentMardown", "description"]
+            //trong bang mardowns chi lay 3 truong thoi
+          },
+           {
+            model: db.Allcode,
+            as: "positionData",
+            attributes: ["value_EN", "value_VI"],
+          },
+          ],
+        //lấy tất cả thông tin từ bảng mardowns
+        raw: true,
+          nest: true, 
+        //nest : cho obj dep hon
+        })
+        if (data.image && data) {
+           data.image = new Buffer(data.image, "base64").toString("binary");
+        }
+        if(!data) data = {}
+        resolve({
+                errCode: 0,
+          data: data,
+        });
+      }
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
+  
 module.exports = {
   getTopDoctor,
   getAlldoctors,
+  getInfoDoctors,
+  getDetailsDoctor
 };

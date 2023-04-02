@@ -1,7 +1,7 @@
 "use strict";
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("mardown", {
+    await queryInterface.createTable("mardowns", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -21,15 +21,15 @@ module.exports = {
         type: Sequelize.TEXT("long"),
       },
       doctorId: {
-        allowNull: true, // co the cho no null
+        allowNull: true, 
         type: Sequelize.INTEGER,
       },
       clinicId: {
-        allowNull: false, // k cho no null
+        allowNull: true, 
         type: Sequelize.INTEGER,
       },
       specialtyId: {
-        allowNull: false, //k cho no nullallowNull: true,
+        allowNull: true, 
         type: Sequelize.INTEGER,
       },
       createdAt: {
@@ -43,6 +43,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("mardown");
+    await queryInterface.dropTable("mardowns");
   },
 };
