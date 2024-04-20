@@ -98,6 +98,7 @@ const hashUserPassword = (password) => {
     }
   });
 };
+console.log("hiii")
 
 module.exports = {
   postCrud,
